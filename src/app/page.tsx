@@ -1,6 +1,7 @@
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import Overlay from "@/components/Overlay";
 import Projects from "@/components/Projects";
+import Experience from "@/components/Experience";
 
 export default function Home() {
   return (
@@ -16,8 +17,9 @@ export default function Home() {
       </section>
 
       {/* 
-        The projects section appears normally _after_ you scroll past the 500vh mark.
+        The experience and projects sections appear normally _after_ you scroll past the 500vh mark.
       */}
+      <Experience />
       <Projects />
       
       {/* Small footer */}

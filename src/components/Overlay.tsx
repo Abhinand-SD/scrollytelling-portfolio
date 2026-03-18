@@ -12,9 +12,11 @@ export default function Overlay() {
     offset: ["start start", "end end"]
   });
 
-  // Section 1: "My Name. Creative Developer." (0% -> 20%)
-  const opacity1 = useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.2], ["0vh", "-50vh"]);
+  // Section 1: "My Name. Creative Developer."
+  // Starts instantly visible (opacity 1 at 0%), fades out by 15-20%
+  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 0.2], ["10vh", "-30vh"]);
+  const display1 = useTransform(scrollYProgress, (pos) => (pos > 0.22 ? "none" : "flex"));
 
   // Section 2: "I build digital experiences." (30% -> 45% -> 60%)
   const opacity2 = useTransform(scrollYProgress, [0.2, 0.3, 0.45, 0.6], [0, 1, 1, 0]);
@@ -29,17 +31,27 @@ export default function Overlay() {
       {/* Sticky container bounds the absolute positioned sections to track the window viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center items-center">
         
-        {/* Section 1 - Centered */}
+        {/* Section 1 - Centered Bottom */}
         <motion.div
-           style={{ opacity: opacity1, y: y1 }}
-           className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+           style={{ opacity: opacity1, y: y1, display: display1 }}
+           className="absolute inset-x-0 bottom-24 flex flex-col items-center justify-center text-center px-4"
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white/90 drop-shadow-2xl">
-            Abhinand SD.
-          </h1>
-          <p className="mt-4 text-xl md:text-2xl text-white/70 font-medium tracking-wide">
-            Full Stack Developer
-          </p>
+           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white/90 drop-shadow-2xl mb-4">
+             Abhinand SD.
+           </h1>
+           <p className="text-lg md:text-xl text-white/70 font-medium tracking-wide mb-12">
+             Full Stack Developer
+           </p>
+
+           {/* Scroll Indicator */}
+           <motion.div 
+             animate={{ y: [0, 10, 0] }}
+             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+             className="flex flex-col items-center gap-2 mt-8 opacity-60"
+           >
+             <span className="text-sm tracking-widest uppercase">Scroll</span>
+             <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent" />
+           </motion.div>
         </motion.div>
 
         {/* Section 2 - Left Aligned */}

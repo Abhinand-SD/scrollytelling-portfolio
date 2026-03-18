@@ -1,72 +1,89 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+
+const projects = [
+    {
+        title: "Solid Starters",
+        category: "Low-Code Platform",
+        description: "A proprietary low-code platform enabling creation of CMS-driven websites through GUI-based model and field creation.",
+        tech: "Next.js, Nest.js, MongoDB",
+        image: "/projects/solid-starters.png"
+    },
+    {
+        title: "Radix E-Commerce",
+        category: "Dynamic Platform",
+        description: "Complete e-commerce platform with dynamic CMS-driven product management and custom admin panels.",
+        tech: "React, Node.js, Microservices",
+        image: "/projects/radix.png"
+    },
+    {
+        title: "Bond Cancellation",
+        category: "Automation System",
+        description: "Business automation for import-export workflows, featuring multi-step processes and financial logic.",
+        tech: "React, Subscription Engine",
+        image: "/projects/bond-cancellation.png"
+    },
+    {
+        title: "Max Life - Mpro",
+        category: "Insurance Tech",
+        description: "Large-scale operations platform. Led two teams, migrated to microservices, and delivered 10+ major upgrades.",
+        tech: "Node.js, Microservices",
+        image: "/projects/max-life.png"
+    },
+];
+
 export default function Projects() {
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description: "A headless shopify experience built with Next.js, featuring dynamic 3D product configured.",
-      tags: ["Next.js", "Three.js", "Tailwind"]
-    },
-    {
-      title: "Fintech Dashboard",
-      description: "Real-time analytics dashboard with WebSockets and complex data visualization.",
-      tags: ["React", "D3", "Framer Motion"]
-    },
-    {
-      title: "Creative Agency Portfolio",
-      description: "Award-winning studio site with custom WebGL shaders and smooth page transitions.",
-      tags: ["WebGL", "GSAP", "Next.js"]
-    },
-    {
-      title: "AI Writing Assistant",
-      description: "Web application wrapping complex LLM capabilities into a fast, minimal interface.",
-      tags: ["OpenAI", "TypeScript", "Vercel SDK"]
-    }
-  ];
+    return (
+        <section className="relative z-20 bg-[#121212] py-32 px-4 md:px-12">
+            <div className="max-w-7xl mx-auto">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-5xl md:text-8xl font-bold mb-20 tracking-tighter text-white"
+                >
+                    Selected Works
+                </motion.h2>
 
-  return (
-    <section className="relative z-20 min-h-screen bg-[#121212] py-24 px-8 md:px-24">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-16 inline-block relative">
-          Selected Work
-          <div className="absolute -bottom-4 left-0 w-1/3 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full" />
-        </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                    {projects.map((project, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                            className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/20 hover:shadow-2xl hover:shadow-purple-500/10 cursor-pointer h-[500px] flex flex-col justify-end"
+                        >
+                            {/* Image Background */}
+                            <div className="absolute inset-0 z-0">
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-[#121212]/80 to-transparent opacity-90 transition-opacity group-hover:opacity-75" />
+                            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, idx) => (
-            <div 
-              key={idx}
-              className="group relative overflow-hidden rounded-2xl p-8 
-                         bg-white/[0.03] backdrop-blur-xl border border-white/10
-                         hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500
-                         hover:shadow-[0_0_30px_rgba(255,255,255,0.05)]"
-            >
-              {/* Subtle hover gradient glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-emerald-500/0 to-blue-500/0 
-                              group-hover:from-blue-500/10 group-hover:to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                              
-              <div className="relative z-10 flex flex-col h-full justify-between gap-12">
-                <div>
-                  <h3 className="text-2xl font-semibold text-white/90 mb-4">{project.title}</h3>
-                  <p className="text-white/60 leading-relaxed text-lg">
-                    {project.description}
-                  </p>
+                            <div className="relative z-10 p-8 transform transition-transform duration-500 group-hover:-translate-y-2">
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                    <span className="px-3 py-1 text-xs font-medium tracking-widest text-[#121212] uppercase bg-[#ededed] rounded-full shadow-lg">
+                                        {project.category}
+                                    </span>
+                                    <span className="px-3 py-1 text-xs font-medium tracking-widest text-white uppercase border border-white/30 rounded-full backdrop-blur-md">
+                                        {project.tech}
+                                    </span>
+                                </div>
+                                <h3 className="text-4xl font-bold text-white mb-3 drop-shadow-md">{project.title}</h3>
+                                <p className="text-gray-200 text-lg leading-relaxed drop-shadow-md">{project.description}</p>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
-                
-                <div className="flex flex-wrap gap-3">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span 
-                      key={tagIndex} 
-                      className="px-4 py-1.5 rounded-full text-sm font-medium
-                                 bg-white/5 border border-white/10 text-white/70"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
