@@ -17,12 +17,12 @@ export default function Overlay() {
   const y1 = useTransform(scrollYProgress, [0, 0.2, 1], ["10vh", "-30vh", "-30vh"]);
 
   // Section 2: "I build digital experiences."
-  const opacity2 = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4, 0.5, 1], [0, 0, 1, 1, 0, 0]);
-  const y2 = useTransform(scrollYProgress, [0, 0.2, 0.5, 1], ["10vh", "10vh", "-30vh", "-30vh"]);
+  const opacity2 = useTransform(scrollYProgress, [0, 0.15, 0.2, 0.3, 0.35, 1], [0, 0, 1, 1, 0, 0]);
+  const y2 = useTransform(scrollYProgress, [0, 0.15, 0.35, 1], ["10vh", "10vh", "-30vh", "-30vh"]);
 
   // Section 3: "Bridging design and engineering."
-  const opacity3 = useTransform(scrollYProgress, [0, 0.5, 0.55, 0.85, 0.95, 1], [0, 0, 1, 1, 0, 0]);
-  const y3 = useTransform(scrollYProgress, [0, 0.5, 0.95, 1], ["10vh", "10vh", "-30vh", "-30vh"]);
+  const opacity3 = useTransform(scrollYProgress, [0, 0.35, 0.4, 0.85, 0.95, 1], [0, 0, 1, 1, 0, 0]);
+  const y3 = useTransform(scrollYProgress, [0, 0.35, 0.95, 1], ["10vh", "10vh", "-30vh", "-30vh"]);
 
   return (
     <div ref={containerRef} className="absolute inset-0 h-[500vh] w-full pointer-events-none z-10">

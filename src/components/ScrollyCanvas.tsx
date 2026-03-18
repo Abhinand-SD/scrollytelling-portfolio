@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import Loader from "@/components/Loader";
 
-const TOTAL_FRAMES = 190;
+const TOTAL_FRAMES = 140;
 export default function ScrollyCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
