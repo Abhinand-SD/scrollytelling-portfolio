@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import Loader from "@/components/Loader";
 
 const TOTAL_FRAMES = 140;
 // 120, 192
@@ -10,6 +11,7 @@ export default function ScrollyCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   // Framer Motion scroll tracking
   const { scrollYProgress } = useScroll({
@@ -33,6 +35,7 @@ export default function ScrollyCanvas() {
       
       img.onload = () => {
         loadedCount++;
+        setProgress((loadedCount / TOTAL_FRAMES) * 100);
         if (loadedCount === TOTAL_FRAMES) {
           setImages(loadedImages);
           setIsLoaded(true);
@@ -43,6 +46,7 @@ export default function ScrollyCanvas() {
       img.onerror = () => {
         console.error(`Failed to load frame ${i}`);
         loadedCount++;
+        setProgress((loadedCount / TOTAL_FRAMES) * 100);
         if (loadedCount === TOTAL_FRAMES) {
           setImages(loadedImages);
           setIsLoaded(true);
@@ -128,12 +132,7 @@ export default function ScrollyCanvas() {
     <div ref={containerRef} className="relative h-[500vh] w-full bg-[#121212]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Loading State Overlay */}
-        {!isLoaded && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center bg-[#121212] flex-col gap-4">
-            <div className="h-8 w-8 animate-spin rounded-full border-t-2 border-r-2 border-white"></div>
-            <p className="text-sm text-white/50 tracking-widest uppercase">Loading Assets...</p>
-          </div>
-        )}
+        <Loader isLoading={!isLoaded} progress={progress} />
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full pointer-events-none"

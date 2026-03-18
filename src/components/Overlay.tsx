@@ -13,18 +13,19 @@ export default function Overlay() {
   });
 
   // Section 1: "My Name. Creative Developer."
-  // Starts instantly visible (opacity 1 at 0%), fades out by 15-20%
-  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 0.2], ["10vh", "-30vh"]);
-  const display1 = useTransform(scrollYProgress, (pos) => (pos > 0.22 ? "none" : "flex"));
+  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1, 0]);
+  const y1 = useTransform(scrollYProgress, [0, 0.25], ["10vh", "-30vh"]);
+  const display1 = useTransform(scrollYProgress, (pos) => (pos > 0.3 ? "none" : "flex"));
 
-  // Section 2: "I build digital experiences." (30% -> 45% -> 60%)
-  const opacity2 = useTransform(scrollYProgress, [0.2, 0.3, 0.45, 0.6], [0, 1, 1, 0]);
-  const y2 = useTransform(scrollYProgress, [0.2, 0.6], ["10vh", "-40vh"]);
+  // Section 2: "I build digital experiences."
+  const opacity2 = useTransform(scrollYProgress, [0.25, 0.35, 0.55, 0.65], [0, 1, 1, 0]);
+  const y2 = useTransform(scrollYProgress, [0.25, 0.65], ["10vh", "-30vh"]);
+  const display2 = useTransform(scrollYProgress, (pos) => ((pos < 0.2 || pos > 0.7) ? "none" : "flex"));
 
-  // Section 3: "Bridging design and engineering." (60% -> 75% -> 100%)
-  const opacity3 = useTransform(scrollYProgress, [0.55, 0.65, 0.8, 1], [0, 1, 1, 0]);
-  const y3 = useTransform(scrollYProgress, [0.55, 1], ["10vh", "-40vh"]);
+  // Section 3: "Bridging design and engineering."
+  const opacity3 = useTransform(scrollYProgress, [0.65, 0.75, 0.9, 0.98], [0, 1, 1, 0]);
+  const y3 = useTransform(scrollYProgress, [0.65, 0.98], ["10vh", "-30vh"]);
+  const display3 = useTransform(scrollYProgress, (pos) => (pos < 0.6 ? "none" : "flex"));
 
   return (
     <div ref={containerRef} className="absolute inset-0 h-[500vh] w-full pointer-events-none z-10">
@@ -56,7 +57,7 @@ export default function Overlay() {
 
         {/* Section 2 - Left Aligned */}
         <motion.div
-           style={{ opacity: opacity2, y: y2 }}
+           style={{ opacity: opacity2, y: y2, display: display2 }}
            className="absolute inset-0 flex flex-col justify-center px-8 md:px-24 max-w-4xl"
         >
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white/90 leading-tight drop-shadow-xl">
@@ -67,7 +68,7 @@ export default function Overlay() {
 
         {/* Section 3 - Right Aligned */}
         <motion.div
-           style={{ opacity: opacity3, y: y3 }}
+           style={{ opacity: opacity3, y: y3, display: display3 }}
            className="absolute inset-0 flex flex-col items-end justify-center px-8 md:px-24 text-right"
         >
           <div className="max-w-3xl">
