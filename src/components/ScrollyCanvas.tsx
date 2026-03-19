@@ -5,7 +5,12 @@ import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import Loader from "@/components/Loader";
 
 const TOTAL_FRAMES = 140;
-export default function ScrollyCanvas() {
+
+interface ScrollyCanvasProps {
+  onLoaded?: () => void;
+}
+
+export default function ScrollyCanvas({ onLoaded }: ScrollyCanvasProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
@@ -38,6 +43,7 @@ export default function ScrollyCanvas() {
         if (loadedCount === TOTAL_FRAMES) {
           setImages(loadedImages);
           setIsLoaded(true);
+          onLoaded?.();
         }
       };
       
@@ -49,6 +55,7 @@ export default function ScrollyCanvas() {
         if (loadedCount === TOTAL_FRAMES) {
           setImages(loadedImages);
           setIsLoaded(true);
+          onLoaded?.();
         }
       };
 
@@ -128,7 +135,7 @@ export default function ScrollyCanvas() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] w-full bg-[#121212]">
+    <div ref={containerRef} className={`relative ${isLoaded ? 'h-[500vh]' : 'h-screen'} w-full bg-[#121212]`}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Loading State Overlay */}
         <Loader isLoading={!isLoaded} progress={progress} />
